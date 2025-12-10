@@ -8,6 +8,8 @@ if (!isset($_SESSION['cart'])) {
 
 // If a product ID is passed (like cart.php?id=3)
 if (isset($_GET['id'])) {
+
+    //Convert the passed ID into variable and append it to cart.
     $productId = intval($_GET['id']);
     $_SESSION['cart'][] = $productId;
 }
@@ -36,6 +38,8 @@ die("Connection Failed");
 <div class="max-w-4xl mx-auto mt-10 p-6 bg-white shadow rounded-lg">
 
     <h1 class="text-3xl font-bold mb-6">Your Cart</h1>
+
+    
 
     <?php
     if (empty($_SESSION['cart'])) {
