@@ -1,5 +1,8 @@
 <?php
+    session_start();
+
     $blankfields = [];
+    $ordertotal = $_SESSION['ordertotal'] ?? 0;
     $name = $_POST['name'] ?? '';
     $email = $_POST['email'] ?? '';
     $phone = $_POST['phone'] ?? '';
@@ -17,11 +20,7 @@
     if(empty($phone)){
         $blankfields[] = "Phone not entered.";
     }
-    if(!empty($blankfields)){
-        foreach ($blankfields as $blankfield){
-            echo $blankfield;
-        }
-    }
+    
 ?>
 
 <!DOCTYPE html>
@@ -37,12 +36,45 @@
         <h1 class="text-3xl font-bold mb-6">Order Details [ORDERID HERE]</h1>
 
         <?php
+
+            if(!empty($blankfields)){
+                foreach ($blankfields as $blankfield){
+                    echo $blankfield;
+                }
+            }
+            else{
+
+            
             //Display the order details (Using htmlspecialchars to escape any malicious inputs)
             echo "
-                <p><strong>Name:</strong> " . htmlspecialchars($name) . "</p>
-                <p><strong>Email:</strong> " . htmlspecialchars($email) . "</p>
-                <p><strong>Phone:</strong> " . htmlspecialchars($phone) . "</p>
-            "
+                <div class='px-2'>
+                    <p><strong>" . htmlspecialchars($name) . ", welcome to the JR Timepiece's Owners Club.</strong></p>
+                    <br>
+                    <p><i><b>The details of your order are listed below:</b></i></p>
+                    <p>Email:" . htmlspecialchars($email) . "</p>
+                    <p>Phone:" . htmlspecialchars($phone) . "</p>
+
+                    <br>
+                    <p><i><b>Delivery Information:</b></i></p>
+                    <p>" . htmlspecialchars($firstaddress) . "</p>
+                    <p>" . htmlspecialchars($secondaddress) . "</p>
+                    <p>" . htmlspecialchars($towncity) . "</p>
+                    <p>" . htmlspecialchars($postcode) . "</p>
+
+                    <br>
+                    <p><i>Total Paid:</i></p>
+                    <p>£" . $ordertotal . "</p>
+                </div>
+
+                <a href='index.php' class='inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition'>Continue</a>
+            ";
+            
+            //Clear cart and total variables:
+            $_SESSION['cart'] = [];
+            $_SESSION['ordertotal'] = 0;
+
+            
+            }
         ?>
 
     </body>

@@ -15,7 +15,7 @@
 <!-- NAVBAR -->
 <nav class="bg-white shadow">
     <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-        <h1 class="text-2xl font-bold">Watch Shop</h1>
+        <h1 class="text-2xl font-bold">JR</h1>
 
         <ul class="flex space-x-6 text-lg">
             <li><a href="#" class="hover:text-blue-600">Home</a></li>
@@ -27,20 +27,13 @@
 </nav>
 
 <!-- HERO SECTION -->
-<section class="relative w-full h-[400px] bg-gray-300 flex items-center justify-center">
-    <img 
-        src="https://via.placeholder.com/1500x400" 
-        alt="Hero Image" 
-        class="w-full h-full object-cover"
-    >
-    <div class="absolute inset-0 bg-black/40"></div>
+<section class="relative w-full h-[900px] bg-gradient-to-b from-[#161616] to-[#242424]  flex items-center justify-center">
+    
+    <img src="media/HeroWatchImage.png" class="absolute w-[500px] h-[500px] translate-x-[-600px]" alt="Luxury Watch">
+    <h1 class="absolute right-[40%] font-bold text-[128px] leading-none bg-gradient-to-r from-[#696969] to-[#FFFFFF] bg-clip-text text-transparent z-10">LUXURY<br>TIMEPIECES</h1>
 
-    <div class="absolute text-center text-white">
-        <h2 class="text-4xl font-bold mb-4">Premium Watches, Made For You</h2>
-        <p class="text-xl mb-6">Discover luxury craftsmanship at affordable prices.</p>
-        <a href="#products" class="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg text-lg">
-            Shop Now
-        </a>
+    <div class="absolute translate-x-[400px]">
+        <a href="#" class="bg-white/15 font-bold text-white text-[30px] px-8 py-3 rounded-[35px] hover:bg-gray-300/35 transition">Explore Collection→</a>
     </div>
 </section>
 

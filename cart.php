@@ -46,6 +46,7 @@ die("Connection Failed");
         echo "<p>Your cart is empty.</p>";
     } else {
         
+        $ordertotal = 0;
         echo "<div class='space-y-4'>";
 
         foreach ($_SESSION['cart'] as $itemId) {
@@ -57,6 +58,7 @@ die("Connection Failed");
             if($result && mysqli_num_rows($result) > 0){
 
                 $product = mysqli_fetch_assoc($result);
+                $ordertotal += $product['Price'];
 
                 //Display the product in cart
                 echo "
@@ -73,10 +75,13 @@ die("Connection Failed");
         }
 
         echo "</div>";
+        echo "<div class='flex items-center p-2 gap-1 justify-end'> 
+        
+            <h3>Order Total: </h3><p>£{$ordertotal}</p>
+            </div>";
 
         echo "
-            <div class='flex justify-between items-center pt-4'>
-                <a href='index.php' class='text-blue-600 inline-block'>← Continue Shopping</a>
+            <div class='flex justify-end items-center pt-2'>
                 <a href='order.php' class='inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition'>Purchase</a> 
             </div>";
             
@@ -84,6 +89,7 @@ die("Connection Failed");
     }
     ?>
 
+    <a href='index.php' class='text-blue-600 inline-block pt-4'>← Continue Shopping</a>
     
 
 </div>

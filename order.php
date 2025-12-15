@@ -25,11 +25,14 @@
         <h1 class="text-3xl font-bold mb-6">Your Order</h1>
 
         <?php 
-        
+        //Total price of order
+            $ordertotal = 0;
         echo "<div class='space-y-2'>";
 
         foreach ($_SESSION['cart'] as $itemId) {
             
+            
+
             //Get product details from database
             $sql = "SELECT * FROM Watches WHERE Id = $itemId";
             $result = mysqli_query($connection, $sql);
@@ -37,6 +40,9 @@
             if($result && mysqli_num_rows($result) > 0){
 
                 $product = mysqli_fetch_assoc($result);
+                $ordertotal += $product['Price'];
+
+                $_SESSION['ordertotal'] = $ordertotal;
 
                 //Display the product in cart
                 echo "
@@ -51,22 +57,29 @@
                 ";
             }
         }
-
         echo "</div>";
+
+        echo "<div class='flex items-center p-2 gap-1'> 
+        
+            <h3 class='text-gray-600'>Order Total: </h3><p class='text-gray-600'>£{$ordertotal}</p>
+            </div>
+        ";
 
         ?>
 
         <!--  Order details form, using POST for security  -->
-        <form class="my-8" action="invoice.php" method="POST">
-            Name: <input type="text" name="name" class="border-[1px] border-gray-600 rounded-lg" required><br>
-            E-mail: <input type="text" name="email" class="border-[1px] border-gray-600 rounded-lg" required><br>
-            Phone Number: <input type="tel" name="phone" class="border-[1px] border-gray-600 rounded-lg" required><br>
-            1st Line Address: <input type="text" name="firstaddress" class="border-[1px] border-gray-600 rounded-lg" required><br>
-            2nd Line Address: <input type="text" name="secondaddress" class="border-[1px] border-gray-600 rounded-lg" required><br>
-            Town/City: <input type="text" name="towncity" class="border-[1px] border-gray-600 rounded-lg" required><br>
-            Postcode: <input type="text" name="postcode" class="border-[1px] border-gray-600 rounded-lg" required><br>
-            <input type="submit" value="Confirm & Pay" class="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:cursor-pointer hover:bg-blue-700 transition" required>
+        <form class="my-8 grid grid-cols-2 grid-rows-7 gap-4" action="invoice.php" method="POST">
+            Name: <input type="text" name="name" class="border-b-[1px] border-gray-600 focus:outline-none" required>
+            E-mail: <input type="text" name="email" class="border-b-[1px] border-gray-600 focus:outline-none" required>
+            Phone Number: <input type="tel" name="phone" class="border-b-[1px] border-gray-600 focus:outline-none" required>
+            1st Line Address: <input type="text" name="firstaddress" class="border-b-[1px] border-gray-600 focus:outline-none" required>
+            2nd Line Address: <input type="text" name="secondaddress" class="border-b-[1px] border-gray-600 focus:outline-none" required>
+            Town/City: <input type="text" name="towncity" class="border-b-[1px] border-gray-600 focus:outline-none" required>
+            Postcode: <input type="text" name="postcode" class="border-b-[1px] border-gray-600 focus:outline-none" required>
+            <div class="col-span-2 flex justify-end mt-4"><input type="submit" value="Confirm & Pay" class="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:cursor-pointer hover:bg-blue-700 transition" required></div>
         </form>
+        <a href='cart.php' class='text-blue-600 inline-block'>← Back to Cart</a>
+        
     </body>
 
 
