@@ -1,6 +1,23 @@
 <?php
     session_start();
 
+    //Prevent URL Hacking - Redirect
+    if($_SERVER['REQUEST_METHOD'] !== 'POST'){
+        header("Location: cart.php");
+        exit;
+    }
+
+    //Redirect if cart or total is blank
+    if(empty($_SESSION['cart'])){
+        header("Location: cart.php");
+        exit;
+    }
+    if($_SESSION['ordertotal'] <= 0){
+        header("Location: cart.php");
+        exit;
+    }
+
+
     $blankfields = [];
     $ordertotal = $_SESSION['ordertotal'] ?? 0;
     $name = $_POST['name'] ?? '';
@@ -10,16 +27,6 @@
     $secondaddress = $_POST['secondaddress'] ?? '';
     $towncity = $_POST['towncity'] ?? '';
     $postcode = $_POST['postcode'] ?? '';
-
-    if(empty($name)){
-        $blankfields[] = "Name not entered.";
-    }
-    if(empty($email)){
-        $blankfields[] = "Email not entered.";
-    }
-    if(empty($phone)){
-        $blankfields[] = "Phone not entered.";
-    }
     
 ?>
 

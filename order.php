@@ -1,6 +1,12 @@
 <?php
     session_start();
 
+    //Redirect back to cart if empty
+    if(!isset($_SESSION['cart']) || empty($_SESSION['cart'])){
+        header("Location: cart.php");
+        exit;
+    }
+
     //server address, username, password, database name
     $connection=mysqli_connect("localhost","root","root","watches");
 
@@ -20,7 +26,7 @@
     </head>
     <body class="bg-gray-100">
 
-        <div class="max-w-4xl mx-auto mt-10 p-6 bg-white shadow rounded-lg">
+        <div class="max-w-3xl mx-auto mt-10 p-6 bg-white shadow rounded-lg">
 
         <h1 class="text-3xl font-bold mb-6">Your Order</h1>
 
@@ -69,13 +75,15 @@
 
         <!--  Order details form, using POST for security  -->
         <form class="my-8 grid grid-cols-2 grid-rows-7 gap-4" action="invoice.php" method="POST">
+            <span><strong>Details</strong></span><span></span>
             Name: <input type="text" name="name" class="border-b-[1px] border-gray-600 focus:outline-none" required>
-            E-mail: <input type="text" name="email" class="border-b-[1px] border-gray-600 focus:outline-none" required>
-            Phone Number: <input type="tel" name="phone" class="border-b-[1px] border-gray-600 focus:outline-none" required>
+            E-mail: <input type="text" name="email" class="border-b-[1px] border-gray-600 focus:outline-none" pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$" required>
+            Phone Number: <input type="tel" name="phone" class="border-b-[1px] border-gray-600 focus:outline-none" pattern="^[0-9+\s()-]{7,20}$" required>
+            <span><strong>Address</strong></span><span></span>
             1st Line Address: <input type="text" name="firstaddress" class="border-b-[1px] border-gray-600 focus:outline-none" required>
             2nd Line Address: <input type="text" name="secondaddress" class="border-b-[1px] border-gray-600 focus:outline-none" required>
             Town/City: <input type="text" name="towncity" class="border-b-[1px] border-gray-600 focus:outline-none" required>
-            Postcode: <input type="text" name="postcode" class="border-b-[1px] border-gray-600 focus:outline-none" required>
+            Postcode: <input type="text" name="postcode" class="border-b-[1px] border-gray-600 focus:outline-none" pattern="^[A-Za-z0-9\s-]{4,10}$" required>
             <div class="col-span-2 flex justify-end mt-4"><input type="submit" value="Confirm & Pay" class="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:cursor-pointer hover:bg-blue-700 transition" required></div>
         </form>
         <a href='cart.php' class='text-blue-600 inline-block'>← Back to Cart</a>
