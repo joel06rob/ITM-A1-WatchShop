@@ -31,16 +31,16 @@
 ?>
 
 <!DOCTYPE html>
-<html>
+<html class="bg-[#161616]">
     <head>
         <title>Order [ORDERID HERE]</title>
         <script src="https://cdn.tailwindcss.com"></script>
     </head>
-    <body class="bg-gray-100">
+    <body>
 
         <div class="max-w-4xl mx-auto mt-10 p-6 bg-white shadow rounded-lg">
 
-        <h1 class="text-3xl font-bold mb-6">Order Details [ORDERID HERE]</h1>
+        <h1 class="text-3xl font-bold mb-6">Order Details</h1>
 
         <?php
 

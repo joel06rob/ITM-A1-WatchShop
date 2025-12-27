@@ -19,12 +19,12 @@
     }
 ?>
 <!DOCTYPE html>
-<html>
+<html class="bg-[#161616]">
     <head>
         <title>Your Order</title>
         <script src="https://cdn.tailwindcss.com"></script>
     </head>
-    <body class="bg-gray-100">
+    <body>
 
         <div class="max-w-3xl mx-auto mt-10 p-6 bg-white shadow rounded-lg">
 

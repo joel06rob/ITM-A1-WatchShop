@@ -14,6 +14,17 @@ if (isset($_GET['id'])) {
     $_SESSION['cart'][] = $productId;
 }
 
+//Remove item from cart
+if (isset($_GET['remove'])) {
+    $removeIndex = intval($_GET['remove']);
+
+    if (isset($_SESSION['cart'][$removeIndex])) {
+        unset($_SESSION['cart'][$removeIndex]);
+        
+        $_SESSION['cart'] = array_values($_SESSION['cart']);
+    }
+}
+
 //server address, username, password, database name
 $connection=mysqli_connect("localhost","root","root","watches");
 
@@ -27,13 +38,13 @@ die("Connection Failed");
 
 ?>
 <!DOCTYPE html>
-<html>
+<html class="bg-[#161616]">
 <head>
     <title>Your Cart</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-gray-100">
+<body>
 
 <div class="max-w-4xl mx-auto mt-10 p-6 bg-white shadow rounded-lg">
 
@@ -49,7 +60,7 @@ die("Connection Failed");
         $ordertotal = 0;
         echo "<div class='space-y-4'>";
 
-        foreach ($_SESSION['cart'] as $itemId) {
+        foreach ($_SESSION['cart'] as $index => $itemId) {
             
             //Get product details from database
             $sql = "SELECT * FROM Watches WHERE Id = $itemId";
@@ -62,13 +73,16 @@ die("Connection Failed");
 
                 //Display the product in cart
                 echo "
-                    <div class='flex items-center gap-4 p-4 border rounded-lg'>
-                    <img src='media/{$product['ImageUrl']}' class='w-24 h-24 object-cover rounded'>
-                    <div>
-                        <p class='text-xl font-semibold'>{$product['Name']}</p>
-                        <p class='text-gray-600'>£{$product['Price']}</p>
+                    <div class='flex items-center justify-between gap-4 p-4 border rounded-lg'>
+                    <div class='flex items-center gap-4'>
+                        <img src='media/{$product['ImageUrl']}' class='w-24 h-24 object-cover rounded'>
+                        <div>
+                            <p class='text-xl font-semibold'>{$product['Name']}</p>
+                            <p class='text-gray-600'>£{$product['Price']}</p>
+                        </div>
                     </div>
                     
+                    <a href='cart.php?remove={$index}' class='text-red-500'>Remove</a>
                 </div>
                 ";
             }
@@ -89,7 +103,7 @@ die("Connection Failed");
     }
     ?>
 
-    <a href='index.php' class='text-blue-600 inline-block pt-4'>← Continue Shopping</a>
+    <a href='index.php' class='text-[#BFB578] font-semibold inline-block pt-4 hover:text-[#161616]'>← Continue Shopping</a>
     
 
 </div>

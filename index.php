@@ -10,18 +10,16 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-gray-100">
+<body class="bg-[#161616]">
 
 <!-- NAVBAR -->
-<nav class="bg-white shadow">
+<nav class="absolute top-0 left-0 w-full bg-none z-10">
     <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-        <h1 class="text-2xl font-bold">JR</h1>
+        <h1 class="text-2xl text-white font-semibold">JR Timepieces</h1>
 
-        <ul class="flex space-x-6 text-lg">
-            <li><a href="#" class="hover:text-blue-600">Home</a></li>
-            <li><a href="#" class="hover:text-blue-600">Products</a></li>
-            <li><a href="cart.php" class="hover:text-blue-600">Cart</a></li>
-            <li><a href="#" class="hover:text-blue-600">Contact</a></li>
+        <ul class="flex space-x-6 text-lg text-white">
+            <li><a href="#" class="hover:text-[#BFB578]">Products</a></li>
+            <li><a href="cart.php" class="hover:text-[#BFB578]">Cart</a></li>
         </ul>
     </div>
 </nav>
@@ -40,7 +38,8 @@
 <!-- PRODUCT LIST -->
 <div id="products" class="max-w-7xl mx-auto py-16 px-4">
 
-    <h2 class="text-3xl font-bold mb-10 text-center">Our Products</h2>
+    <h2 class="text-3xl font-bold mb-5 text-center text-white">Our Collection</h2>
+    <h3 class="text-2xl font-regular mb-20 text-center text-[#BFB578]">Explore our finest timepieces</h2>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
 
@@ -83,7 +82,7 @@
                     echo '
                     
                     <a href="cart.php?id=' . $row['Id'] .'" 
-                        class="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+                        class="inline-block bg-none text-[#BFB578] font-semibold px-4 py-2 rounded-lg hover:text-[#161616] transition">
                         Add to Cart
                     </a>
                     ';
