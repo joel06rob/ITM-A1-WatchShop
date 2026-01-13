@@ -18,7 +18,7 @@
         <h1 class="text-2xl text-white font-semibold">JR Timepieces</h1>
 
         <ul class="flex space-x-6 text-lg text-white">
-            <li><a href="#" class="hover:text-[#BFB578]">Products</a></li>
+            <li><a href="#products" class="hover:text-[#BFB578]">Products</a></li>
             <li><a href="cart.php" class="hover:text-[#BFB578]">Cart</a></li>
         </ul>
     </div>
@@ -31,7 +31,7 @@
     <h1 class="absolute right-[40%] font-bold text-[128px] leading-none bg-gradient-to-r from-[#696969] to-[#FFFFFF] bg-clip-text text-transparent z-10">LUXURY<br>TIMEPIECES</h1>
 
     <div class="absolute translate-x-[400px]">
-        <a href="#" class="bg-white/15 font-bold text-white text-[30px] px-8 py-3 rounded-[35px] hover:bg-gray-300/35 transition">Explore Collection→</a>
+        <a href="#products" class="bg-white/15 font-bold text-white text-[30px] px-8 py-3 rounded-[35px] hover:bg-gray-300/35 transition">Explore Collection→</a>
     </div>
 </section>
 

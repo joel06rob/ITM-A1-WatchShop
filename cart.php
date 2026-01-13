@@ -12,6 +12,10 @@ if (isset($_GET['id'])) {
     //Convert the passed ID into variable and append it to cart.
     $productId = intval($_GET['id']);
     $_SESSION['cart'][] = $productId;
+
+    //Redirect back to cart.php to remove appended id (Refresh fix)
+    header("Location: cart.php");
+    exit;
 }
 
 //Remove item from cart

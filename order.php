@@ -7,6 +7,9 @@
         exit;
     }
 
+    //Get invalid entry errors
+    $errors = $_GET['error'] ?? '';
+
     //server address, username, password, database name
     $connection=mysqli_connect("localhost","root","root","watches");
 
@@ -71,6 +74,18 @@
             </div>
         ";
 
+        //Display any input errors
+        if(isset($errors)){
+            switch($errors){
+            case 'invalid_phone':
+                echo "<p class='text-red-600'>Enter a valid phone number.</p>";
+                break;
+            case 'invalid_postcode':
+                echo "<p class='text-red-600'>Enter a valid post code.</p>";
+                break;
+        }
+        }
+
         ?>
 
         <!--  Order details form, using POST for security  -->
@@ -78,12 +93,16 @@
             <span><strong>Details</strong></span><span></span>
             Name: <input type="text" name="name" class="border-b-[1px] border-gray-600 focus:outline-none" required>
             E-mail: <input type="text" name="email" class="border-b-[1px] border-gray-600 focus:outline-none" pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$" required>
-            Phone Number: <input type="tel" name="phone" class="border-b-[1px] border-gray-600 focus:outline-none" pattern="^[0-9+\s()-]{7,20}$" required>
+            Phone Number: <input type="text" name="phone" class="border-b-[1px] border-gray-600 focus:outline-none" pattern="^\+?[0-9]{1,4}?[\s.-]?\(?[0-9]{1,4}?\)?[\s.-]?[0-9\s.-]{5,15}$" required>
             <span><strong>Address</strong></span><span></span>
             1st Line Address: <input type="text" name="firstaddress" class="border-b-[1px] border-gray-600 focus:outline-none" required>
             2nd Line Address: <input type="text" name="secondaddress" class="border-b-[1px] border-gray-600 focus:outline-none" required>
             Town/City: <input type="text" name="towncity" class="border-b-[1px] border-gray-600 focus:outline-none" required>
             Postcode: <input type="text" name="postcode" class="border-b-[1px] border-gray-600 focus:outline-none" pattern="^[A-Za-z0-9\s-]{4,10}$" required>
+            <span><strong>Payment</strong></span><span></span>
+            Name on card: <input type="text" name="namecard" class="border-b-[1px] border-gray-600 focus:outline-none" required>
+            Card Number: <input type="text" name="numbercard" class="border-b-[1px] border-gray-600 focus:outline-none" pattern="^[0-9 ]{13,19}$" inputmode="numeric" required>
+            CVC: <input type="text" name="cvccard" class="border-b-[1px] border-gray-600 focus:outline-none" pattern="^[0-9]{3,4}$" inputmode="numeric" required>
             <div class="col-span-2 flex justify-end mt-4"><input type="submit" value="Confirm & Pay" class="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:cursor-pointer hover:bg-blue-700 transition" required></div>
         </form>
         <a href='cart.php' class='text-blue-600 inline-block'>← Back to Cart</a>
