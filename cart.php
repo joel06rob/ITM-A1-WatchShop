@@ -55,12 +55,14 @@ die("Connection Failed");
     <h1 class="text-3xl font-bold mb-6">Your Cart</h1>
 
     
-
+    
     <?php
+    //Check if cart is empty - display if so.
     if (empty($_SESSION['cart'])) {
         echo "<p>Your cart is empty.</p>";
     } else {
         
+        //initializing order total
         $ordertotal = 0;
         echo "<div class='space-y-4'>";
 

@@ -36,16 +36,39 @@
 </section>
 
 <!-- PRODUCT LIST -->
-<div id="products" class="max-w-7xl mx-auto py-16 px-4">
+<div id="products" class="max-w-7xl mx-auto py-20 pb-28 px-4">
 
     <h2 class="text-3xl font-bold mb-5 text-center text-white">Our Collection</h2>
     <h3 class="text-2xl font-regular mb-20 text-center text-[#BFB578]">Explore our finest timepieces</h2>
+    
+    <h4 class="text-3xl font-semibold mb-5 text-white">Tailor Your Pick</h4>
+    
+<!--Form for dropdown to handle sorting-->
+    <form method="GET" class="flex items-center mb-16 gap-4">
+    <p class="text-2xl font-regular text-[#BFB578]">Sort by:</p>
+
+    <select name="sort" onchange="this.form.submit()" class="p-1 rounded-lg">
+        <option value="">Default</option>
+        <option value="price_asc" <?= ($_GET['sort'] ?? '') === 'price_asc' ? 'selected' : '' ?>>Lowest Price</option>
+        <option value="price_desc" <?= ($_GET['sort'] ?? '') === 'price_desc' ? 'selected' : '' ?>>Highest Price</option>
+        <option value="popular" <?= ($_GET['sort'] ?? '') === 'popular' ? 'selected' : '' ?>>Most Popular</option>
+    </select>
+    </form>
+    <!--
+    <select name="sort" id="sort">
+        <option value="least">Lowest Price</option>
+        <option value="highest">Highest Price</option>
+        <option value="popular">Most Popular</option>
+    
+        </select>
+    </div> -->
 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
 
     
     <?php
         
+        //filezilla college server credentials: localhost, ddm371981, toasters!371981, watches
         //server address, username, password, database name - open a connection to database
         $connection=mysqli_connect("localhost","root","root","watches");
 
@@ -58,16 +81,34 @@
             die("Connection Failed");
         }
         
-        //SQL Command to get all the products from database + execute the query
-        $sql="SELECT * FROM Watches";
+        //SQL Command to get all the products from database (sorted) + execute the query
+        $sort = $_GET['sort'] ?? '';
+
+        switch ($sort) {
+            case 'price_asc':
+                $orderBy = 'ORDER BY Price ASC';
+                break;
+            case 'price_desc':
+                $orderBy = 'ORDER BY Price DESC';
+                break;
+            case 'popular':
+                $orderBy = 'ORDER BY Stock ASC';
+                break;
+            default:
+                $orderBy = '';
+        }
+
+        $sql = "SELECT * FROM Watches $orderBy";
         $results=mysqli_query($connection,$sql);
 
         //Return the number of rows + Check if there are results. If so loop through those results and categorise each result as an associative array, then display results as HTML.
         if (mysqli_num_rows($results) > 0) {
             while ($row = mysqli_fetch_assoc($results)) {
              echo '
-                <div class="bg-white shadow rounded-xl p-5 text-center">
-
+                <div class="relative group bg-white shadow rounded-xl p-5 text-center">
+                <div class="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 hidden group-hover:block w-max bg-black text-white text-xs rounded px-2 py-1">
+                '. $row['Description'] .'
+                </div>
                 <img 
                     src="media/' . $row['ImageUrl'] . '" 
                     alt="'.$row['Name'].'"
@@ -109,6 +150,18 @@
 
     </div>
 </div>
+<section class="bg-white">
+<div class="max-w-4xl mx-auto py-16 px-10 grid grid-cols-2 gap-20">
+<p class="py-10">JR Timepieces has been established since the 1800's. We have been carefully assembling timepieces in a professional, expert manner for as long as we can remember. Not one bezel or hand hasn't been carefully crafted by our expert watchmakers. Our watches are like no other, we only craft for the best.</p>
+<img src="media/images.jpeg">
+</div>
+</section>
+
+<footer class="flex text-white font-medium py-8 px-8 gap-6">
+    <a href="#">Contact Us</a>
+    <a href="#">Make a Purchase</a>
+    <a href="cart.php">Your Cart</a>
+</footer>
 
 </body>
 </html>

@@ -83,6 +83,9 @@
             case 'invalid_postcode':
                 echo "<p class='text-red-600'>Enter a valid post code.</p>";
                 break;
+            case 'invalid_name':
+                echo "<p class='text-red-600'>Enter a valid name.</p>";
+                break;
         }
         }
 

@@ -17,7 +17,7 @@
         exit;
     }
 
-
+    //Get all the fields submitted in the order form - set as blank to avoid errors.
     $blankfields = [];
     $ordertotal = $_SESSION['ordertotal'] ?? 0;
     $name = $_POST['name'] ?? '';
@@ -28,6 +28,7 @@
     $towncity = $_POST['towncity'] ?? '';
     $postcode = $_POST['postcode'] ?? '';
     $cardnumber = $_POST['numbercard'] ?? '';
+    $cardname = $_POST['namecard'] ?? '';
 
 
     //Trap invalid input errors - redirect back to cart
@@ -42,6 +43,12 @@
     // Postcode validation
     if (!preg_match('/^[A-Za-z0-9\s-]{4,10}$/', $postcode)) {
         header("Location: order.php?error=invalid_postcode");
+        exit;
+    }
+
+    //Name validation
+    if(preg_match('/\d/', $name) || preg_match('/\d/', $cardname)){
+        header("Location: order.php?error=invalid_name");
         exit;
     }
 
